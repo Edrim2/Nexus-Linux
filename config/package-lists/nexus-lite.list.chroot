@@ -1,0 +1,49 @@
+
+# Nexus Linux - Lite Edition
+# Base system
+linux-image-amd64
+systemd-sysv
+live-boot
+live-config
+live-config-systemd
+live-tools
+
+# Graphical environment
+xserver-xorg
+icewm
+lightdm
+lightdm-gtk-greeter
+dbus-x11
+lxpolkit
+
+# File management and desktop utilities
+pcmanfm
+lxterminal
+mousepad
+udisks2
+gvfs
+gvfs-backends
+
+# Internet and networking
+firefox-esr
+network-manager
+network-manager-gnome
+ca-certificates
+
+# Audio
+alsa-utils
+
+# Essential tools
+sudo
+nano
+htop
+curl
+wget
+pciutils
+usbutils
+xdg-utils
+xdg-user-dirs
+
+# Fonts and icons
+fonts-dejavu-core
+adwaita-icon-theme
