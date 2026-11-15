@@ -38,6 +38,7 @@ echo "[2/4] Configuring Debian Trixie..."
 
 lb config \
     --mode debian \
+        --initsystem systemd \
     --distribution "$DEBIAN_SUITE" \
     --architectures "$ARCHITECTURE" \
     --binary-images iso-hybrid \
