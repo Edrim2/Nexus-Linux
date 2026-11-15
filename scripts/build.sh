@@ -10,25 +10,23 @@ cd "$PROJECT_ROOT"
 DEBIAN_SUITE="${DEBIAN_SUITE:-trixie}"
 ARCHITECTURE="amd64"
 
+DEBIAN_MIRROR="http://deb.debian.org/debian"
+DEBIAN_SECURITY="http://security.debian.org/debian-security"
+
 echo "=================================="
 echo "       NEXUS LINUX BUILDER"
 echo "=================================="
 
-# Check root permissions
 if [[ "$EUID" -ne 0 ]]; then
     echo "ERROR: Run this script as root."
-    echo "Example: sudo bash scripts/build.sh"
     exit 1
 fi
 
-# Check dependencies
 if ! command -v lb >/dev/null 2>&1; then
     echo "ERROR: live-build is not installed."
-    echo "Install it with: apt install live-build"
     exit 1
 fi
 
-# Check required configuration
 if [[ ! -s config/package-lists/nexus-lite.list.chroot ]]; then
     echo "ERROR: Nexus Lite package list is missing."
     exit 1
@@ -37,13 +35,18 @@ fi
 echo "[1/4] Cleaning previous build..."
 lb clean
 
-echo "[2/4] Configuring Debian Live..."
+echo "[2/4] Configuring Debian Trixie..."
 
 lb config \
     --distribution "$DEBIAN_SUITE" \
     --architectures "$ARCHITECTURE" \
     --binary-images iso-hybrid \
-    --archive-areas "main contrib non-free non-free-firmware"
+    --archive-areas "main contrib non-free non-free-firmware" \
+    --mirror-bootstrap "$DEBIAN_MIRROR" \
+    --mirror-chroot "$DEBIAN_MIRROR" \
+    --mirror-chroot-security "$DEBIAN_SECURITY" \
+    --mirror-binary "$DEBIAN_MIRROR" \
+    --mirror-binary-security "$DEBIAN_SECURITY"
 
 echo "[3/4] Building Nexus Linux..."
 
