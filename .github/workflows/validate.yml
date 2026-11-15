@@ -1,0 +1,41 @@
+
+name: Nexus Linux CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check project license
+        run: test -s LICENSE
+
+      - name: Check available shell scripts
+        run: |
+          for file in auto/config scripts/*.sh; do
+            if [ -f "$file" ]; then
+              sh -n "$file"
+            fi
+          done
+
+      - name: Check README if present
+        run: |
+          if [ -f README.md ]; then
+            test -s README.md
+          fi
+
+      - name: Success
+        run: echo "Nexus Linux validation completed!"
