@@ -13,29 +13,29 @@ permissions:
 
 jobs:
   validate:
-    name: Validate repository
+    name: Validate Nexus Linux
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check project license
-        run: test -s LICENSE
-
-      - name: Check available shell scripts
+      - name: Check required files
         run: |
-          for file in auto/config scripts/*.sh; do
-            if [ -f "$file" ]; then
-              sh -n "$file"
-            fi
-          done
+          test -s README.md
+          test -s LICENSE
+          test -s docs/ARCHITECTURE.md
+          test -s config/package-lists/nexus-lite.list.chroot
+          test -s scripts/build.sh
+          test -s scripts/check.sh
 
-      - name: Check README if present
+      - name: Validate shell scripts
         run: |
-          if [ -f README.md ]; then
-            test -s README.md
-          fi
+          bash -n scripts/build.sh
+          bash -n scripts/check.sh
 
-      - name: Success
-        run: echo "Nexus Linux validation completed!"
+      - name: Run project checker
+        run: bash scripts/check.sh
+
+      - name: Report success
+        run: echo "Nexus Linux validation completed successfully!"
