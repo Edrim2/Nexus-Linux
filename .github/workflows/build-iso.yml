@@ -36,28 +36,28 @@ jobs:
                 "${packages[@]}"
             '
 
-      - name: Install build dependencies
+      - name: Build Nexus Linux ISO using Debian Trixie
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            live-build \
-            debootstrap \
-            xorriso \
-            squashfs-tools \
-            debian-archive-keyring
+          docker run --privileged --rm \
+            -v "$GITHUB_WORKSPACE:/workspace" \
+            -w /workspace \
+            debian:trixie \
+            bash -euc '
+              apt-get update
 
-      - name: Verify Debian archive keyring
-        run: |
-          test -s /usr/share/keyrings/debian-archive-keyring.gpg
-          echo "Debian archive keyring found."
+              apt-get install -y --no-install-recommends \
+                live-build \
+                debootstrap \
+                xorriso \
+                squashfs-tools \
+                debian-archive-keyring \
+                ca-certificates
 
-      - name: Validate build script
-        run: bash -n scripts/build.sh
+              test -s /usr/share/keyrings/debian-archive-keyring.gpg
+              bash -n scripts/build.sh
 
-      - name: Build Nexus Linux ISO
-        run: |
-          sudo env DEBIAN_SUITE=trixie \
-            bash scripts/build.sh
+              DEBIAN_SUITE=trixie bash scripts/build.sh
+            '
 
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
