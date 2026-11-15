@@ -45,7 +45,8 @@ lb config \
     --mirror-bootstrap "$DEBIAN_MIRROR" \
     --mirror-chroot "$DEBIAN_MIRROR" \
     --mirror-binary "$DEBIAN_MIRROR" \
-    --security false
+    --security false \
+    --linux-packages none
 
 echo "[3/4] Building Nexus Linux..."
 
