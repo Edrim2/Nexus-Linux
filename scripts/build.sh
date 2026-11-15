@@ -31,8 +31,8 @@ if [[ ! -s config/package-lists/nexus-lite.list.chroot ]]; then
     exit 1
 fi
 
-echo "[1/3] Cleaning previous configuration..."
-lb clean --purge || true
+echo "[1/3] Cleaning previous build..."
+lb clean
 
 echo "[2/3] Configuring Debian Live..."
 
