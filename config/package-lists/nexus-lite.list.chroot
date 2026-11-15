@@ -2,6 +2,7 @@
 # Nexus Linux - Lite Edition
 # Base system
 linux-image-amd64
+isolinux
 systemd-sysv
 live-boot
 live-config
