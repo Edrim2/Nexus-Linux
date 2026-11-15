@@ -17,6 +17,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Validate packages on Debian Trixie
+        run: |
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/workspace:ro" \
+            -w /workspace \
+            debian:trixie \
+            bash -euc '
+              apt-get update
+
+              mapfile -t packages < <(
+                grep -Ev "^[[:space:]]*(#|$)" \
+                  config/package-lists/nexus-lite.list.chroot
+              )
+
+              apt-get install --simulate \
+                --no-install-recommends \
+                "${packages[@]}"
+            '
+
       - name: Install build dependencies
         run: |
           sudo apt-get update
