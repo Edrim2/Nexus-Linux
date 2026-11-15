@@ -43,7 +43,13 @@ jobs:
             live-build \
             debootstrap \
             xorriso \
-            squashfs-tools
+            squashfs-tools \
+            debian-archive-keyring
+
+      - name: Verify Debian archive keyring
+        run: |
+          test -s /usr/share/keyrings/debian-archive-keyring.gpg
+          echo "Debian archive keyring found."
 
       - name: Validate build script
         run: bash -n scripts/build.sh
