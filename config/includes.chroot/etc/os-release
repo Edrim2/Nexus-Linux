@@ -1,0 +1,13 @@
+
+NAME="Nexus Linux"
+PRETTY_NAME="Nexus Linux Lite"
+ID=nexus
+ID_LIKE=debian
+VERSION="0.1"
+VERSION_ID="0.1"
+VERSION_CODENAME=foundation
+BUILD_ID=development
+HOME_URL="https://github.com/Edrim2/Nexus-Linux"
+DOCUMENTATION_URL="https://github.com/Edrim2/Nexus-Linux"
+SUPPORT_URL="https://github.com/Edrim2/Nexus-Linux/issues"
+BUG_REPORT_URL="https://github.com/Edrim2/Nexus-Linux/issues"
