@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+mkdir -p /lib/syslinux
+
+if [ ! -f /usr/lib/ISOLINUX/isolinux.bin ]; then
+    echo "ERRO: isolinux.bin não foi instalado."
+    exit 1
+fi
+
+if [ ! -f /usr/lib/syslinux/modules/bios/vesamenu.c32 ]; then
+    echo "ERRO: vesamenu.c32 não foi instalado."
+    exit 1
+fi
+
+ln -sf /usr/lib/ISOLINUX/isolinux.bin \
+    /lib/syslinux/isolinux.bin
+
+ln -sf /usr/lib/syslinux/modules/bios/vesamenu.c32 \
+    /lib/syslinux/vesamenu.c32
+
+echo "[NEXUS] Compatibilidade Syslinux corrigida."
