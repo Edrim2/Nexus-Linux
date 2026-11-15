@@ -1,0 +1,33 @@
+
+# Build outputs
+/build/
+/dist/
+/out/
+/*.iso
+/*.img
+
+# Debian live-build
+/chroot/
+/binary/
+/.cache/
+
+# Temporary files
+*.tmp
+*.log
+*.swp
+*~
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
