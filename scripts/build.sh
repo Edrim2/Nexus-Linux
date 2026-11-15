@@ -11,7 +11,6 @@ DEBIAN_SUITE="${DEBIAN_SUITE:-trixie}"
 ARCHITECTURE="amd64"
 
 DEBIAN_MIRROR="http://deb.debian.org/debian"
-DEBIAN_SECURITY="http://security.debian.org/debian-security"
 
 echo "=================================="
 echo "       NEXUS LINUX BUILDER"
@@ -45,9 +44,8 @@ lb config \
     --archive-areas "main contrib non-free non-free-firmware" \
     --mirror-bootstrap "$DEBIAN_MIRROR" \
     --mirror-chroot "$DEBIAN_MIRROR" \
-    --mirror-chroot-security "$DEBIAN_SECURITY" \
     --mirror-binary "$DEBIAN_MIRROR" \
-    --mirror-binary-security "$DEBIAN_SECURITY"
+    --security false
 
 echo "[3/4] Building Nexus Linux..."
 
