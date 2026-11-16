@@ -2,14 +2,11 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# Nexus Linux - Build System
-
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_ROOT"
 
 DEBIAN_SUITE="${DEBIAN_SUITE:-trixie}"
 ARCHITECTURE="amd64"
-
 DEBIAN_MIRROR="http://deb.debian.org/debian"
 
 echo "=================================="
@@ -38,7 +35,7 @@ echo "[2/4] Configuring Debian Trixie..."
 
 lb config \
     --mode debian \
-        --initsystem systemd \
+    --initsystem systemd \
     --distribution "$DEBIAN_SUITE" \
     --architectures "$ARCHITECTURE" \
     --binary-images iso-hybrid \
@@ -47,10 +44,9 @@ lb config \
     --mirror-chroot "$DEBIAN_MIRROR" \
     --mirror-binary "$DEBIAN_MIRROR" \
     --security false \
-    --linux-packages none
+    --linux-packages linux-image
 
 echo "[3/4] Building Nexus Linux..."
-
 lb build
 
 echo "[4/4] Verifying generated ISO..."
